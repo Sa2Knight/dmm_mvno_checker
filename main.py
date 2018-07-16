@@ -20,7 +20,7 @@ LOGIN_ID = os.environ['DMM_ID']
 PASSWORD = os.environ['DMM_PASSWORD']
 
 # 各待機時間
-WAIT_TIME = 1.0
+WAIT_TIME = 2.0
 
 # Chromeの初期設定
 options = Options()
