@@ -43,7 +43,7 @@ driver.find_element_by_xpath("//form[@name='loginForm']//input[@type='submit']")
 # 通信量が表示されるまで待機
 WebDriverWait(driver, WAIT_TIME * 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'number')))
 
-# debug
+# 通信量を出力
 print(driver.find_element_by_class_name('number').text)
 
 # Chromeを終了
