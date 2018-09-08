@@ -21,34 +21,35 @@ def check():
   PASSWORD = os.environ['DMM_PASSWORD']
 
   # 各待機時間
-  WAIT_TIME = 2.0
+  WAIT_TIME = 1.0
 
   # Chromeの初期設定
   options = Options()
   options.binary_location = CHROME_BIN
   options.add_argument('--headless')
-  options.add_argument('--window-size=1280,3000')
+  # options.add_argument('--window-size=1280,3000')
   driver = webdriver.Chrome(CHROME_DRIVER, chrome_options=options)
 
-  # DMMMobileのログインページにアクセス
-  driver.get(URL)
+  try:
+    # DMMMobileのログインページにアクセス
+    driver.get(URL)
 
-  # メールアドレスとパスワードを入力
-  driver.find_element_by_id('login_id').send_keys(LOGIN_ID)
-  driver.find_element_by_id('password').send_keys(PASSWORD)
-  time.sleep(WAIT_TIME)
+    # メールアドレスとパスワードを入力
+    driver.find_element_by_id('login_id').send_keys(LOGIN_ID)
+    driver.find_element_by_id('password').send_keys(PASSWORD)
+    time.sleep(WAIT_TIME)
 
-  # ログインボタン押下
-  driver.find_element_by_xpath("//form[@name='loginForm']//input[@type='submit']").click()
+    # ログインボタン押下
+    driver.find_element_by_xpath("//form[@name='loginForm']//input[@type='submit']").click()
 
-  # 通信量が表示されるまで待機
-  WebDriverWait(driver, WAIT_TIME * 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'number')))
+    # 通信量が表示されるまで待機
+    WebDriverWait(driver, WAIT_TIME * 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'number')))
 
-  # 通信量を出力
-  print(driver.find_element_by_class_name('number').text)
-
-  # Chromeを終了
-  driver.quit()
+    # 通信量を出力
+    print(driver.find_element_by_class_name('number').text)
+  finally:
+    # Chromeを終了
+    driver.quit()
 
 if __name__ == '__main__':
   check()
